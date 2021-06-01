@@ -12,6 +12,7 @@ CONTENT = u"from lyrebird import event\n@event('flow')\ndef test_func():\n\tpass
 
 @pytest.fixture
 def checker_init(tmp_path, tmpdir):
+    print("执行checker_init")
     # default config
     config = {
         "checker.workspace": tmp_path,
@@ -34,6 +35,7 @@ def checker_init(tmp_path, tmpdir):
 
 @pytest.fixture
 def checker_server(checker_init, tmp_path):
+    print("执行checker_server")
     server = LyrebirdCheckerServer()
     server.start()
     server.SCRIPTS_DIR = tmp_path
@@ -44,12 +46,15 @@ def checker_server(checker_init, tmp_path):
 
 @pytest.fixture
 def event_server():
+    print("执行event_server")
     server = EventServer()
     application.server['event'] = server
     yield server
 
 
 def test_load_checkers(event_server, checker_server):
+    print("执行test_load_checkers")
+    print("application:",application)
     assert CHECKER_A_FILENAME in application.checkers
     assert len(application.checkers) == 2
 
@@ -61,6 +66,7 @@ def test_load_checkers(event_server, checker_server):
 
 
 def test_activate_deactivate(event_server, checker_server):
+    print("执行test_activate_deactivate")
     application.checkers[CHECKER_A_FILENAME].activate()
     assert application.checkers[CHECKER_A_FILENAME].activated == True
 
