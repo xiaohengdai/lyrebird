@@ -1,0 +1,2 @@
+url_list: ["/rest/n/user/recommend/aggregate"]
+url_key_value: {"/rest/n/user/recommend/aggregate":["user_name":'*@!#$%^我1s?:',"rawText":'*@!#$%^我1s?:']}

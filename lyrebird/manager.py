@@ -60,7 +60,7 @@ def main():
     parser = argparse.ArgumentParser(prog='lyrebird')
 
     parser.add_argument('-V', '--version', dest='version', action='store_true', help='show lyrebird version')
-    parser.add_argument('-v', dest='verbose', action='count', default=0, help='Show verbose log')
+    parser.add_argument('-v', dest='verbose', action='count', default=2, help='Show verbose log')
     parser.add_argument('--ip', dest='ip', help='Set device ip')
     parser.add_argument('--mock', dest='mock', type=int, help='Set mock server port, default port is 9090')
     parser.add_argument('--extra-mock', dest='extra_mock', type=int, help='Set extra mock server port, default port is 9999')
@@ -122,7 +122,7 @@ def main():
     application._cm.config['extra.mock.port'] = _extra_mock_port
 
     logger.debug(f'Read args: {args}')
-
+    print("args:",args)
     if args.sub_command == 'gen':
         logger.debug('EXEC: Plugin project generator')
         gen(args)
@@ -138,7 +138,7 @@ def run(args: argparse.Namespace):
 
         # Set file descriptors
         try:
-            resource.setrlimit(resource.RLIMIT_NOFILE, (8192, 8192))
+            resource.setrlimit(resource.RLIMIT_NOFILE, (8192, 8192))  #能打开的最大文件数
         except Exception:
             traceback.print_exc()
             logger.warning('Set file descriptors failed\nPlease set it by your self, use "ulimit -n 8192" with root account')
@@ -190,16 +190,16 @@ def run(args: argparse.Namespace):
 
     # Lyrebird status contains: 'READY' and 'INITING'
     application.status = 'READY'
-
+    logger.debug("application:"+str(application))
     # stop event handler
     def signal_handler(signum, frame):
         reporter.stop()
         application.stop_server()
-        threading.Event().set()
+        threading.Event().set()   #将event的标志设置为True，调用wait方法的所有线程将被唤醒；
         logger.warning('!!!Ctrl-C pressed. Lyrebird stop!!!')
         os._exit(0)
 
-    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)  #接收ctrl+c中断信号
     signal.signal(signal.SIGTERM, signal_handler)
 
     threading.Event().wait()
