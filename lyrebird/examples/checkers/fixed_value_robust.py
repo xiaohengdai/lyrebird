@@ -33,15 +33,6 @@ logger = log.get_logger()
 # THRESHOLD_IMG_SIZE: image size limitation
 
 
-def ignore_check(msg):
-    if 'name' in msg.keys():
-        if msg['name'] != 'server.response':
-            return True
-        if 'response' not in msg['flow']:
-            return True
-        if 'image' not in msg['flow']['response']['headers']['Content-Type']:
-            return True
-    return False
 
 @on_response()
 def fixed_value_robust(flow):

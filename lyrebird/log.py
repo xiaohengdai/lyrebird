@@ -62,6 +62,7 @@ def _init_file_logger(custom_log_path=None):
     else:
         log_file = application.root_dir()/'lyrebird.log'
 
+
     file_handler = logging.handlers.TimedRotatingFileHandler(log_file, backupCount=1, encoding='utf-8', when='midnight')
     file_handler.setFormatter(file_formater)
 
