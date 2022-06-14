@@ -52,29 +52,33 @@ def record(flow):
     method=flow_request.get('method')
     logger.info("method0:"+str(method))
     # 加上过滤条件
-    if 'GET' in str(method):
+    if 'rest/' in str(flow_path): #只录制快手主站/极速版app内的
         # 打开保存在本地的数据文件
         requestInfo = {}
         requestInfo['request_url'] = str(flow_request.get("url"))
 
         data = flow_response.get("data")
         requestInfo['request_headers'] = create_headers(flow_request.get("headers"))
+        requestInfo['request_query'] = create_headers(flow_request.get("query"))
         requestInfo['request_method'] = flow_request.get('method')
-        requestInfo['status_code'] = flow_response.get('status_code')
+        requestInfo['status_code'] = flow_response.get('code')
         requestInfo['reason'] = flow_response.get('reason')
         requestInfo['response_data'] = data
         requestInfo['response_headers'] = create_headers(flow_response.get('headers'))
         requestInfo['request_time'] = flow_request.get("timestamp")
 
         requestInfo['response_time'] = flow_response.get('timestamp')
+        requestInfo['scene_name'] = '主态点击粉丝列表进入'
 
         # requestInfo['response_time'] = requestInfo['response_time_end'] - requestInfo['request_time_start']  # 响应时间
         print(requestInfo)
         with open(savePath, 'a+') as csvfile:
             writer = csv.writer(csvfile)
+            header_list = ["request_url", "request_headers", "request_query", "request_method", "status_code", "response_data", "response_time","scene_name"]
+            writer.writerow(header_list)
             writer.writerows(
-                [[requestInfo['request_url'], requestInfo['request_headers'], requestInfo['request_method'],
-                  requestInfo['status_code'], requestInfo['response_data'], requestInfo['response_time']]])
+                [[requestInfo['request_url'], requestInfo['request_headers'],requestInfo['request_query'], requestInfo['request_method'],
+                  requestInfo['status_code'], requestInfo['response_data'], requestInfo['response_time'],requestInfo['scene_name']]])
             # ctx.log('********************** 写入数据成功 ********************** ')
             logger.info("********************** 写入数据成功 ********************** ")
 
