@@ -271,6 +271,7 @@ class DataManager:
 
     def _make_data(self, raw_data, **kwargs):
         data = dict(raw_data)
+        logger.info("data:"+str(data))
         _data_id = kwargs.get('data_id') or str(uuid.uuid4())
         data['id'] = _data_id
         if 'request' in data:
@@ -670,6 +671,7 @@ class DataManager:
             raise IDNotFound(_id)
         node['name'] = data['name']
         self._adapter._update_data(data)
+        logger.info("node:"+str(node))
         self._adapter._update_group(node)
 
     # -----
