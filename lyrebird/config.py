@@ -8,6 +8,7 @@ from lyrebird import log as nlog
 
 logger = nlog.get_logger()
 
+print('path.join("{{current_dir}}", "mock_data", "personal"):',path.join("{{current_dir}}", "mock_data", "personal"))
 config_template = {
     "version": "0.10.5",
     "proxy.filters": [],
@@ -80,6 +81,7 @@ class ConfigManager():
         template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(str(self.config_root)))
         template = template_env.get_template(self.conf_file.name)
         current_dir = str(self.config_root)
+        print("current_dir:",current_dir)
         download_dir = str(self.ROOT / 'downloads')
         conf_str = template.render(current_dir=json.dumps(current_dir).strip('"'), download_dir=json.dumps(download_dir).strip('"'))
         loaded_config = json.loads(conf_str)

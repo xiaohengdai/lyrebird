@@ -17,12 +17,16 @@ Info used in channel flow
       └── Content-Type
 
 """
+import shutil
+
+import curlify
 
 from lyrebird import event
 import os
 import copy
 from lyrebird import on_response, log
 from lyrebird.case_strategy.mock_case_stratergy import *
+from util.curl_util import get_curl_request_by_flow
 from util.file_util import get_auto_mock_null_robust_config_value, update_auto_mock_null_robust_config_value
 
 logger = log.get_logger()
@@ -45,13 +49,17 @@ def fixed_value_robust(flow):
     # flow_duration = flow['duration']
     # flow_start_time = flow['start_time']
     flow_request = flow['request']
+    logger.info("flow_request:" + str(flow_request))
+    get_curl_request_by_flow(flow_request)
+    # print("curl0:",curlify.to_curl(flow_request, compressed=True))  #flow_request是AttributeError: 'HookedDict' object has no attribute 'method'
     flow_response = flow['response']
+    logger.info("flow_response:" + str(flow_response))
     # flow_client_address = flow['client_address']
     # logger.info("flow_id:" + str(flow_id))
     # logger.info("flow_size:" + str(flow_size))
     # logger.info("flow_duration:" + str(flow_duration))
     # logger.info("flow_start_time:" + str(flow_start_time))
-    logger.info("flow_request:" + str(flow_request))
+
     # logger.info("flow_request.get('url'):" + str(flow_request.get('url')))
     flow_path=flow_request.get('path')
     logger.info("flow_path:" + str(flow_path))
@@ -105,6 +113,9 @@ def fixed_value_robust(flow):
                 scene_name = 'default'
             mock_file_dir = f"/Users/xh/Downloads/ks/lyrebird/mock_json_file/{scene_name}"
             logger.info("mock_file_dir:" + str(mock_file_dir))
+            if index == 0:
+                if os.path.exists(mock_file_dir):
+                    shutil.rmtree(mock_file_dir)
             if not os.path.exists(mock_file_dir):
                 os.mkdir(mock_file_dir)
             mock_value = flow_url_key_value.get("mock_value")
@@ -137,10 +148,6 @@ def fixed_value_robust(flow):
                         dest_json_path = os.path.join(mock_file_strategy_dir,f"{dest_dir_name}_{i}_{key}.json")
                         mock_file_path_li.append(dest_json_path)
                         with open(dest_json_path, 'w', encoding='utf-8') as fw:
-                            # if data1 != new_li[i]:
-                            #     print(f"第{i}次修改成功")
-                            # else:
-                            #     print(f"第{i}次修改不成功")
                             json.dump(mock_flow_response_dict[i], fw, indent=4, ensure_ascii=False)
                         i = i + 1
                     mock_flow_response = mock_flow_response_dict[index]
@@ -153,13 +160,10 @@ def fixed_value_robust(flow):
                     mock_flow_response=injson
             if flow_response != mock_flow_response:
                 logger.info("数据Mock成功")
-                # logger.info("data_json:"+str(data_json))
-                # logger.info("copy_data_json:"+str(copy_data_json))
             else:
                 logger.info("没有对数据进行Mock")
             logger.info("flow_response:" + str(flow_response))
             logger.info("mock_flow_response:" + str(mock_flow_response))
-            # logger.info("mock_flow_response_dict:"+str(mock_flow_response_dict))
             update_auto_mock_null_robust_config_value('url_key_value',flow_path,'mock_file_path_li', value=mock_file_path_li)
             if index>=len(mock_file_path_li):
                 index=-1

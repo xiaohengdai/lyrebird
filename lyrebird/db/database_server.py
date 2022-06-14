@@ -39,7 +39,7 @@ class LyrebirdDatabaseServer(ThreadServer):
             self.database_uri = ROOT_DIR/DEFAULT_NAME
         else:
             self.database_uri = Path(path).expanduser().absolute()
-
+        logger.info("self.database_uri:"+str(self.database_uri))
         self.init_engine()
 
         # init queue
@@ -50,7 +50,7 @@ class LyrebirdDatabaseServer(ThreadServer):
 
     def init_engine(self):
         sqlite_path = 'sqlite:///'+str(self.database_uri)+'?check_same_thread=False'
-
+        logger.info("sqlite_path:"+str(sqlite_path))
         engine = create_engine(str(sqlite_path))
 
         # Set pragma on connect
@@ -75,6 +75,7 @@ class LyrebirdDatabaseServer(ThreadServer):
     def event_receiver(self, event, channel=None, event_id=None):
         # event is decoded , which should be encoded when save
         # event is deepcopy when created, no needs to copy again
+        logger.info("开始进入到event_receiver中")
         if channel == 'flow':
             application.encoders_decoders.encoder_handler(event['flow'])
 
