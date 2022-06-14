@@ -1,0 +1,28 @@
+url_list:
+- /rest/n/user/recommend/v3
+- /rest/n/intimate/relation/native/detail
+url_key_value:
+  /rest/n/user/recommend/v3:
+    index: 0
+    scene_name: 小红帽页
+    total_num: 288
+    mock_value: empty
+    mock_status_code: 404 #修改状态码的值
+#    mock_type: 0   #置null  mock_value:null
+#    mock_type: 4   #置空 mock_value:empty
+#    mock_type: -1 #修改状态码为500  mock_value: status_code
+    mock_type: 5  #删除某个key  mock_value: delete_key
+    black_key_list: ["userId","user_id"]
+    mock_file_path_li: []
+  /rest/n/intimate/relation/native/detail:
+    index: 0
+      scene_name: 亲密关系个人落地页
+      total_num: 288
+      mock_value: empty
+      mock_status_code: 404 #修改状态码的值
+      #    mock_type: 0   #置null  mock_value:null
+      #    mock_type: 4   #置空 mock_value:empty
+      #    mock_type: -1 #修改状态码为500  mock_value: status_code
+      mock_type: 5  #删除某个key  mock_value: delete_key
+      black_key_list: [  ]
+      mock_file_path_li: [ ]

@@ -22,22 +22,9 @@
             <i-col span="12" offset="1">{{status[key]}}</i-col>
           </Row>
           <Divider style="margin:10px 0;"/>
-          <div style="text-align:center">
-            <strong>
-              Copyright &copy; 2018-present 
-              <a href="https://meituan-dianping.github.io/lyrebird" target="_blank" >Meituan</a>.
-            </strong>
-          </div>
         </div>
       </Poptip>
-      <span class="main-footer-status">
-        <a
-          href="https://github.com/Meituan-Dianping/lyrebird/issues/new?assignees=&labels=&template=bug_report.md&title="
-          target="_blank"
-        >
-          <v-icon size="16px" color="white">mdi-ladybug</v-icon> 
-        </a>
-      </span>
+
       <span class="main-footer-status-placeholder"></span>
   </span>
 </template>
