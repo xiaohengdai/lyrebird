@@ -3,7 +3,9 @@ import json
 import codecs
 from pathlib import Path
 from urllib.parse import urlparse
+from lyrebird import log
 
+logger = log.get_logger()
 
 PROP_FILE_NAME = '.lyrebird_prop'
 
@@ -91,12 +93,16 @@ class FileDataAdapter:
         self.context._sort_children_by_name()
         prop_str = PropWriter().parse(self.context.root)
         prop_file = self.context.root_path / PROP_FILE_NAME
+        logger.info("_save_prop中prop_file:"+str(prop_file))
+        logger.info("_save_prop中prop_str:" + str(prop_str))
         with codecs.open(prop_file, 'w') as f:
             f.write(prop_str)
         self.context.reactive()
 
     def _save_data(self, path, data):
         prop_str = json.dumps(data, ensure_ascii=False)
+        logger.info("_save_data中path:" + str(path))
+        logger.info("_save_data中prop_str:" + str(prop_str))
         with codecs.open(path, 'w') as f:
             f.write(prop_str)
 

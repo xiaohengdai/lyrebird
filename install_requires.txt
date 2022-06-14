@@ -58,3 +58,6 @@ wsproto==0.15.0
 zstandard==0.14.1
 PyYAML
 httpstat
+curlify
+deepdiff
+pycurl

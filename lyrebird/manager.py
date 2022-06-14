@@ -110,7 +110,9 @@ def main():
     if args.proxy:
         application._cm.config['proxy.port'] = args.proxy
     if args.data:
-        application._cm.config['mock.data'] = str(Path(args.data).expanduser().absolute())
+        mock_data_path=str(Path(args.data).expanduser().absolute())
+        logger.info("mock_data_path:"+str(mock_data_path))
+        application._cm.config['mock.data'] = mock_data_path
 
     # Set extra mock port
     if args.extra_mock:

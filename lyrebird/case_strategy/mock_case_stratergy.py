@@ -1,4 +1,5 @@
 import copy
+import os
 import random
 import json
 from lyrebird import on_response, log
@@ -9,6 +10,9 @@ logger = log.get_logger()
 
 duplicate_li = []  # 表示所有节点的key(包含有子节点的节点)，去重li
 key_list = []
+stack = []
+key_path_li=[]
+id_li=[]
 # 修改指定key的value值，包含在response中的key里的key
 def check_json_value(dic_json, k, v,mock_type=0):
     '''
@@ -18,6 +22,7 @@ def check_json_value(dic_json, k, v,mock_type=0):
     mock_type:mock模式，0代表指定值，1代表根据数据类型的随机值，2代表文件名后缀替换（图片、视频），
     3代表某个key是否存在（与模式0逻辑一致）,在yaml文件中配置指定值时，均定为-99999
     '''
+
     if isinstance(dic_json, dict):
         for key in list(dic_json.keys()):
             duplicate_li.append(key)
@@ -41,6 +46,30 @@ def check_json_value(dic_json, k, v,mock_type=0):
                 elif mock_type==5:
                     logger.info("dic_json:"+str(dic_json))
                     dic_json.pop(k)
+                elif mock_type==-2:
+                    print("dic_json[key]:",dic_json[key])
+
+                    stack.append(dic_json[key])
+                    print("stack:",stack)
+                    if '/' in dic_json[key]:
+                        id=dic_json['id']
+                        print("id:",id)
+                    #     str=''
+                    #     for i in range (0,len(stack)):
+                    #         if i==len(stack)-1:
+                    #             stack[i]=stack[i].replace('/','_')
+                    #         str=str+stack[i]+"/"
+                    #         str=str.replace("$",'').replace(" ",'')
+                    #
+                    #         # social_mock_git_data = '/Users/xh/Downloads/ks_beifen/socialmockdata'
+                    #         # print("str:",str)
+                    #         # parent_dir_path=social_mock_git_data+str
+                    #         # if not os.path.exists(parent_dir_path):
+                    #         #     os.mkdir(parent_dir_path)
+                    #     key_path_li.append(str)
+                    #     print("key_path_li:",key_path_li)
+                    #     stack.pop()
+                    # print("stack:",stack)
             elif isinstance(dic_json[key], dict):
                 check_json_value(dic_json[key], k, v,mock_type)
             elif isinstance(dic_json[key], list):

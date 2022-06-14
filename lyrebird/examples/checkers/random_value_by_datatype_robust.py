@@ -69,7 +69,7 @@ def random_value_robust(flow):
             mock_key_value=flow_url_key_value
             #需要在这里加随机Mock策略，先判断数据类型、文件格式，然后再针对性的mock
 
-            mock_flow_response = set_per_key_value(flow_response,mock_key_value,mock_type=True)
+            mock_flow_response = set_per_key_value(flow_response,mock_key_value,mock_type=1)
             if flow_response != mock_flow_response:
                 logger.info("数据Mock成功")
                 # logger.info("data_json:"+str(data_json))

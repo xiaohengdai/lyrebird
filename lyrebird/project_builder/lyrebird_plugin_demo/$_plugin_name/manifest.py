@@ -23,7 +23,7 @@ manifest(
         ('flow', handler.on_request)
     ],
     status=[
-        status.StatusbarDemoImage,
-        status.StatusbarDemoText
+        # status.StatusbarDemoImage,
+        # status.StatusbarDemoText
     ]
 )
