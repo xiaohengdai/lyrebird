@@ -1,0 +1,27 @@
+url_list:
+- /rest/n/user/recommend/v3
+- /rest/n/intimate/relation/native/detail
+url_key_value:
+  /rest/n/intimate/relation/native/detail:
+    index: 0
+    scene_name: 亲密关系个人落地页
+    total_num: 53
+    mock_value: empty
+    mock_status_code: 404
+    mock_type: 5
+    black_key_list:
+    - userId
+    - user_id
+    mock_file_path_li: []
+  /rest/n/user/recommend/v3:
+    index: 0
+    scene_name: 亲密关系个人落地页
+    total_num: 53
+    mock_value: empty
+    mock_status_code: 404
+    mock_type: 5
+    black_key_list:
+    - userId
+    - user_id
+    mock_file_path_li: []
+
