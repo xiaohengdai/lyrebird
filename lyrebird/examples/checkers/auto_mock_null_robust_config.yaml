@@ -3,7 +3,7 @@ url_list:
 url_key_value:
   /detail:
     index: 1
-    scene_name: 亲密关系个人落地页
+    scene_name: 落地页
     total_num: 343
     mock_value: empty
     mock_status_code: 404
