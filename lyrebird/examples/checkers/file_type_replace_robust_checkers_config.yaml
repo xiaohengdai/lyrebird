@@ -1,2 +1,2 @@
-url_list: ["/rest/n/user/recommend/aggregate"]
-url_key_value: {"/rest/n/user/recommend/aggregate":["image":'',"url":'']}
+url_list: ["/recommend"]
+url_key_value: {"/recommend":[]}
