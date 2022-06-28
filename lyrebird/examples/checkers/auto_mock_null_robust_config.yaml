@@ -1,9 +1,7 @@
 url_list:
-- /rest/n/user/recommend/v3
-- /rest/n/intimate/relation/native/detail
-- /rest/n/user/recommend/aggregate
+- /detail
 url_key_value:
-  /rest/n/intimate/relation/native/detail:
+  /detail:
     index: 1
     scene_name: 亲密关系个人落地页
     total_num: 343
