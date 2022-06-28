@@ -1,3 +1,3 @@
-url_list: [ "/rest/nebula/feedback/negative" ]
+url_list: [ "/feedback" ]
 
-url_key_value: { "/rest/nebula/feedback/negative": [ "to_verify_url_upload_num": 1,"has_verified_url_upload_num": 0,"actionType": '3',"negativePage": "PYMK","page2": "FOLLOW","photo": "0","portal": "0" ] }
+url_key_value: {  }
