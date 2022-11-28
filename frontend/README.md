@@ -1,7 +1,9 @@
 # Lyrebird 前端
 使用VUE构建Lyrebird前端
 
-
+本地构建前端:
+npm install
+npm run build
 
 ## Project setup
 ```
